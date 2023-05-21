@@ -1,13 +1,13 @@
 from flask import Flask, render_template, jsonify, request
 import openai
 import json
-import multiprocessing
+import concurrent.futures
 import os
 from query_generation import generate_game_lore_query
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 app = Flask(__name__, template_folder = TEMPLATE_DIR)
 
-# openai.api_key = 'r79W1YkRlzFvizmbJnkuT3BlbkFJGYVd7QYdbcfBGA3nTxZN'
+openai.api_key = YOUR KEY HERE
 
 @app.route('/', methods=['GET'])
 def index():
@@ -19,62 +19,53 @@ def get_started():
 
 
 def generate_lore(prompt):
-    response = openai.Completion.create(
-        engine='text-davinci-turbo',
-        prompt=prompt,
-        max_tokens=50,
-        n=1,
-        stop=None,
-        temperature=0.7,
-        top_p=1.0,
-        frequency_penalty=0.0,
-        presence_penalty=0.0,
-        guidance="You are a story writer that writes stories for video games. Your writing is captivating and leaves "
-                 "readers wanting for more."
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a story writer that writes stories for video games. "
+                                          "Your writing is captivating and leaves "
+                                          "readers wanting for more."},
+            {"role": "user", "content": prompt},
+        ]
     )
-
-    lore = response.choices[0].text.strip()
-    lore = json.dumps(lore)
+    lore = response.choices[0].message.content
+    lore = json.loads(lore)
     return lore
 
 
 def generate_lore_images(lore):
-    # Create a shared dictionary using multiprocessing.Manager
-    manager = multiprocessing.Manager()
-    result_dict = manager.dict()
-    result_dict.update(lore)
-    # Create a multiprocessing Pool
-    pool = multiprocessing.Pool()
-
+    # Create a dictionary to store the results
+    banner_args = (f"{lore['game_description']} Exciting, Fun, High Quality.", '1024x1024', lore, 'banner_image_url')
+    logo_args = (f"{lore['game_description']} Simple, Clean, Minimalist, Abstract.", '256x256', lore, 'logo_image_url')
     image_args = []
-    banner_args = (f"{lore['game_description']} Exciting, Fun, High Quality.", 'large', result_dict, 'banner_image_url')
-    logo_args = (f"{lore['game_description']} Simple, Clean, Minimalist, Abstract.", 'small', result_dict, 'logo_image_url')
     image_args += [banner_args, logo_args]
-    for character in result_dict['characters']:
-        character_args = (f"{character['char_appearance']} Attractive, Cool, Action Shot.", 'medium', character, 'char_image_url')
+    for character in lore['characters']:
+        character_args = (f"{character['char_appearance']} Attractive, Cool, Action Shot.", '512x512', character, 'char_image_url')
         image_args += [character_args]
 
-    # Iterate over the descriptions and URLs
-    for args in image_args
-        # Apply the generate_image function to each description and pass the result_dict and url_key as additional arguments
-        pool.apply_async(generate_image, args=args)
+    # Create a ThreadPoolExecutor
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        # Submit tasks to the executor
+        futures = [executor.submit(generate_image, *args) for args in image_args]
 
-    # Close the pool and wait for all the processes to complete
-    pool.close()
-    pool.join()
+        # Wait for all the tasks to complete
+        concurrent.futures.wait(futures)
 
-    return dict(result_dict)
+    return lore
 
 def generate_image(description, size, result_dict, url_key):
+    print('starting image gen')
     response = openai.Image.create(
-        description=description,
+        prompt=description,
+        n=1,
         size=size
     )
     # Handle the response here, such as extracting the generated image URL
     # or saving the image to a file
 
     # Assign the result to the corresponding URL key in the shared dictionary
-    result_dict[url_key] = response.image.url
+    print(response)
+    result_dict[url_key] = response['data'][0]['url']
 
 def call_openai(prompt):
     lore = generate_lore(prompt)
@@ -142,10 +133,10 @@ def mock_response():
 def lore():
     if request.method == 'POST':
         payload = request.get_json()
-        print("Received payload:", payload)
 
         lore_prompt = generate_game_lore_query(payload)
-        lore = mock_response()
+        lore = call_openai(lore_prompt)
+        print(lore)
         return render_template('lore.html', response=lore)
     else:
         # Handle GET request
