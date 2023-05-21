@@ -1,0 +1,35 @@
+{
+    "theme":{
+        "dark":"Players will be confronted with grim subjects. Character stories will often be tragic.",
+        "revenge":"Players will try to inflict suffering on those who have wronged them in the past.",
+        "mystery":"Players will gather information to move them closer to solving an overarching secret within the story.",
+        "adventure":"Players will embark on one or multiple quests to advance their character's story and abilities",
+        "horror":"Players will be cast into a setting that induces fear and anxiety. Ominous and startling interactions will disturb the player as they pursue safety"
+    },
+    "genre":{
+        "fantasy":"The game will take place in a fantastical world where magic often dictates the course of history. Medieval societal themes are present and epic battles will fuel the political landscape. The player will encounter many mystical races and creatures.",
+        "scifi":"The game will present the player with one or more of the following subjects: futuristic technology, dystopian and apocolyptic worlds, space exploration and colonization, human augmentation, time travel, alternate realities, environmental cataclysm, interplanetary corporations, and scientific ethical dilemmas.",
+        "action":"The game will take the player through a series of heart pounding encounters where they will navigate through a variety of the following subjects: survival, escape, wafare, espionage, superhuman abilities, crime, gangs, factions, gunplay, parkour, daring missions, and violent confrontations.",
+        "RPG":"The game world is meant to be explored by the player as they navigate one or more of the following topics: aventure, good versus evil, identity and self-discovery, mythology, political power, survival, crafting, and companionship. The game may allow players to assemble a group of companions to accompany them. There are systems of character progression such as talent trees and moral alignment modifiers.",
+        "platformer":"The game world is a frenzy of moving hazards for the player to navigate through. The dangers become increasingly challenging as the player progresses through the levels."
+    },
+    "audience":{
+        "thrill-seekers":"The game is to target thrill-seekers as a primary demographic. Thrill-seekers want a game that gets their heart pumping. Racing, sports, gunplay, and survival are common subjects. The higher the stakes, the better.",
+        "gen-x":"The is to target generation x as a primary demographic. Generation x can be appealed to with nostalgic themes that were popular in the 1980s.",
+        "casual-gamers":"Casual gamers want a game that is easy to engage and disengage with. They want simple progression and easily digested strategies.",
+        "hardcore-gamers":"Hardcore gamers want a game that challenges them. They are willing to engage with complex progression systems. They are aware of any meta play that may surface and look for powerful strategies that will give them an edge, even at the cost of a significantly higher time investment.",
+        "family":"Family games involve a mix of competitive and cooperative elements. They are made for family members to enjoy together."
+    },
+    "classifications":{
+        "Co-Op":"The game is meant to be completed with at least one other person. The focus is on collaboration.",
+        "PVP":"The game is designed to players to compete against each other.",
+        "MOBA":"The game is a multiplayer online battle arena. The players start at a similar level of progress at the beginning of a match and compete to acheive victory.",
+        "Strategy":"The game is meant to challenge the players problem solving abilities. They will improvise to use the tools made available to them to overcome obstacles in interesting ways",
+        "First-Person Shooter":"The game is ",
+        "Racing":"Players try to complete objectives faster than their opponents.",
+        "Sandbox":"The game allows players to create and design items, levels, and/or encounters.",
+        "Simulation":"The game will replicate real-world activities, systems, or experiences. The game presents the player with an virtual environment where they can interact with and interchange elements of the simulated environment. Realism is key to providing an authentic simulation experience.",
+        "Sports":"The game is based a sport.",
+        "Puzzle":"The game focuses on solving puzzles or challenges with logical thinking. The player is presented with a well-defined set of rules and constraints that define how the puzzle operates. A gradual difficulty curve keeps the game intriguing and tests the players understanding of the puzzles presented."
+    }
+}
