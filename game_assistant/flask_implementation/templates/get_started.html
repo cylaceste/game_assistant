@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Get Started</title>
+</head>
+<body>
+    <h1>Get Started</h1>
+    <form id="loreForm">
+        <p>
+            The name of my game is <input type="text" name="game_name" required><br><br>
+            It's a
+            <select name="theme" required>
+                <option value="">-- Select Theme --</option>
+                <option value="dark">Dark</option>
+                <option value="revenge">Revenge</option>
+                <option value="mystery">Mystery</option>
+                <option value="adventure">Adventure</option>
+                <option value="horror">Horror</option>
+            </select>
+            <select name="genre" required>
+                <option value="">-- Select Genre --</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="scifi">Sci-Fi</option>
+                <option value="action">Action</option>
+                <option value="RPG">RPG</option>
+                <option value="platformer">Platformer</option>
+            </select>
+            game about <input type="text" name="main_character_name" required> that caters to
+            <select name="audience" required>
+                <option value="">-- Select Audience --</option>
+                <option value="thrill-seekers">Thrill-seekers</option>
+                <option value="gen-x">Gen X</option>
+                <option value="casual-gamers">Casual Gamers</option>
+                <option value="hardcore-gamers">Hardcore Gamers</option>
+                <option value="family">Family</option>
+            </select>.<br><br>
+            The game is a<br>
+            <label><input type="checkbox" name="game_type" value="co-op">Co-Op</label><br>
+            <label><input type="checkbox" name="game_type" value="pvp">PVP</label><br>
+            <label><input type="checkbox" name="game_type" value="moba">MOBA</label><br>
+            <label><input type="checkbox" name="game_type" value="strategy">Strategy</label><br>
+            <label><input type="checkbox" name="game_type" value="fps">First-Person Shooter</label><br>
+            <label><input type="checkbox" name="game_type" value="racing">Racing</label><br>
+            <label><input type="checkbox" name="game_type" value="sandbox">Sandbox</label><br>
+            <label><input type="checkbox" name="game_type" value="simulation">Simulation</label><br>
+            <label><input type="checkbox" name="game_type" value="sports">Sports</label><br>
+            <label><input type="checkbox" name="game_type" value="puzzle">Puzzle</label><br>
+        </p>
+        <button type="submit">Create Some Lore</button>
+    </form>
+
+    <script>
+        document.getElementById("loreForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var form = event.target;
+            var payload = {
+                "game_name": form.elements.game_name.value,
+                "theme": form.elements.theme.value,
+                "genre": form.elements.genre.value,
+                "main_character_name": form.elements.main_character_name.value,
+                "audience": form.elements.audience.value,
+                "game_types": []
+            };
+            var checkboxes = form.elements["game_type"];
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    payload.game_types.push(checkboxes[i].value);
+                }
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/lore", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    console.log(response.message);
+                    // Handle the response from the server if needed
+                }
+            };
+            xhr.send(JSON.stringify(payload));
+        });
+    </script>
+</body>
+</html>
