@@ -13,7 +13,7 @@ set OPENAI_KEY=<your_openai_key>
 ```
 2. Run all commands below by pasting into your terminal and hitting enter.
 ```
-git clone https://github.com/cylaceste/game_assistant.git game-assistant2
+git clone https://github.com/cylaceste/game_assistant.git game-assistant
 cd game-assistant
 pip install -r requirements.txt
 python game_assistant/flask_implementation/server.py
