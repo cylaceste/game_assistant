@@ -5,7 +5,7 @@ Our AI Game Jam project to automate game-lore generation. Features a front-end w
 1. git clone https://github.com/cylaceste/game_assistant.git
 2. pip install -r requirements.txt
 3. Update openai key in game_assistant/flask_implementation/server.py
-4. python game_assistant/flask_implementation/server.py
+4. execute `python game_assistant/flask_implementation/server.py`
 5. go to [localhost](http://localhost:80)
 
 
