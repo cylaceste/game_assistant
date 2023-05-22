@@ -8,7 +8,7 @@ from query_generation import generate_game_lore_query
 TEMPLATE_DIR: str = os.path.join(os.path.dirname(__file__), 'templates')
 app: Flask = Flask(__name__, template_folder=TEMPLATE_DIR)
 
-openai.api_key = YOUR-KEY-HERE
+openai.api_key = os.getenv("OPENAI_KEY")
 
 @app.route('/', methods=['GET'])
 def index() -> str:
