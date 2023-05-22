@@ -2,6 +2,10 @@
 Our AI Game Jam project to automate game-lore generation. Features a front-end webpage that is rendered via Flask to prompt users for information about their game so we can create the description, some characters and images.
 ![image](https://github.com/cylaceste/game_assistant/assets/120675172/5bc3029d-0153-4233-8d39-c5524e05987b)
 
+## Demonstration
+
+https://studio.youtube.com/video/P48h3K0MxD4/edit
+
 ## Running Game Assistant
 1. Set your openai key:
 ```
