@@ -4,7 +4,7 @@ Our AI Game Jam project to automate game-lore generation. Features a front-end w
 
 ## Demonstration
 
-https://studio.youtube.com/video/P48h3K0MxD4/edit
+https://www.youtube.com/watch?v=P48h3K0MxD4
 
 ## Running Game Assistant
 1. Set your openai key:
