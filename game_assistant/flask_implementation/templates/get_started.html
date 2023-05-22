@@ -2,9 +2,92 @@
 <html>
 <head>
     <title>Get Started</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .cool-effect {
+            display: inline-block;
+            animation: letter-light-up 2s forwards;
+            letter-spacing: -2px; /* Reduce the spacing between letters */
+        }
+
+        @keyframes letter-light-up {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        p {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .loader {
+            display: none;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        button {
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Get Started</h1>
+    <h1>
+        <span class="cool-effect">G</span>
+        <span class="cool-effect">e</span>
+        <span class="cool-effect">t</span>
+        <span class="cool-effect"> </span>
+        <span class="cool-effect">S</span>
+        <span class="cool-effect">t</span>
+        <span class="cool-effect">a</span>
+        <span class="cool-effect">r</span>
+        <span class="cool-effect">t</span>
+        <span class="cool-effect">e</span>
+        <span class="cool-effect">d</span>
+    </h1>
     <form id="loreForm">
         <p>
             The name of my game is <input type="text" name="game_name" required><br><br>
@@ -46,6 +129,9 @@
             <label><input type="checkbox" name="game_type" value="sports">Sports</label><br>
             <label><input type="checkbox" name="game_type" value="puzzle">Puzzle</label><br>
         </p>
+        <div id="loader" class="loader">
+            <h2>Creating lore... Please wait.</h2>
+        </div>
         <button type="submit">Create Some Lore</button>
     </form>
 
@@ -68,6 +154,10 @@
                 }
             }
 
+            // Show the loading message and hide the form and button
+            document.getElementById("loader").classList.remove("hidden");
+            form.classList.add("hidden");
+
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/lore", true);
             xhr.setRequestHeader("Content-Type", "application/json");
@@ -84,6 +174,9 @@
                         // Handle any errors or unsuccessful responses here
                         console.error("Error creating lore");
                     }
+                    // Show the form and button again
+                    document.getElementById("loader").classList.add("hidden");
+                    form.classList.remove("hidden");
                 }
             };
             xhr.send(JSON.stringify(payload));
